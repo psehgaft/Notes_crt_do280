@@ -171,9 +171,41 @@ Create the htpasswd file.
 
 Excercice
 
-```oc
-oc new-project ocp-curriculim-schedule
+- Login 
 
+```oc
+oc login -u [user] -t [tocken] https://[URL]:6443
+
+```
+
+- Create the ocp-curriculim-schedule-authorization project
+
+```oc
+oc new-project ocp-curriculim-schedule-authorization
+
+```
+
+- Create a secret named review-secret.
+
+```oc
+oc create secret generic review-secret --from-literal user=wpuser  -from-literal password=ocpschecule123 --from-literal database=wordpress
+```
+
+or
+
+-TODO--
+
+
+- Create a new application to deploy a ocp-schedule database server.
+
+```oc
+oc new-app --name ocp-schedule --docker-image registry.redhat.io/rhel8/mysql-80:1
+```
+
+- Verify that the ocp-schedule pod redeploys successfully.
+
+```oc
+watch oc get pods
 ```
 
 ### References: 
