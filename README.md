@@ -174,7 +174,7 @@ Excercice
 - Login 
 
 ```oc
-oc login -u [user] -t [tocken] https://[URL]:6443
+oc login -u [user] -t [tocken] https://[URL]:6443 [https://console-openshift-console.apps.fiserv.openshift.training]
 
 ```
 
@@ -182,13 +182,12 @@ oc login -u [user] -t [tocken] https://[URL]:6443
 
 ```oc
 oc new-project ocp-curriculim-schedule-authorization
-
 ```
 
-- Create a secret named review-secret.
+- Create a secret named ocp-secret.
 
 ```oc
-oc create secret generic review-secret --from-literal user=wpuser  -from-literal password=ocpschecule123 --from-literal database=wordpress
+oc create secret generic ocp-secret --from-literal user=wpuser --from-literal password=redhat123 --from-literal database=wordpress
 ```
 
 or
@@ -196,16 +195,67 @@ or
 -TODO--
 
 
-- Create a new application to deploy a ocp-schedule database server.
+- Create a new application to deploy a *ocp-schedule-mysql* database server.
 
 ```oc
-oc new-app --name ocp-schedule --docker-image registry.redhat.io/rhel8/mysql-80:1
+oc new-app --name ocp-schedule-mysql --docker-image registry.redhat.io/rhel8/mysql-80:1
 ```
 
-- Verify that the ocp-schedule pod redeploys successfully.
+- The --prefix option ensures that all the variables injected from the secret into the pod start with MYSQL_.
+
+```oc
+oc set env dc/ocp-schedule-mysql --prefix MYSQL_ --from secret/ocp-secret
+```
+
+- Verify that the ocp-schedule-mysql pod redeploys successfully.
 
 ```oc
 watch oc get pods
+```
+
+- Deploy a *ocp-schedule-wordpress* application.
+
+```oc
+oc new-app --name ocp-schedule-wordpress --docker-image quay.io/redhattraining/wordpress:5.7-php7.4-apache -e WORDPRESS_DB_HOST=mysql -e WORDPRESS_DB_NAME=wordpress -e WORDPRESS_TITLE=auth-review -e WORDPRESS_USER=wpuser -e WORDPRESS_PASSWORD=redhat123 -e WORDPRESS_EMAIL=operator@ocpschecule.com -e WORDPRESS_URL=wordpress-review.apps.fiserv.openshift.training/
+```
+
+- The --prefix option ensures that the variables injected from the secret into the pod all start with WORDPRESS_DB_.
+
+```oc
+oc set env dc/ocp-schedule-wordpress --prefix WORDPRESS_DB_ --from secret/ocp-secret
+
+watch oc get pods -l deployment=ocp-schedule-wordpress
+```
+
+- Check whether using a different SCC resolves the permissions problem.
+
+```oc
+oc get pod/wordpress-[pod-id] -o yaml | oc adm policy scc-subject-review -f -
+```
+
+- Create a service account named wordpress-sa
+
+```oc
+oc create serviceaccount wordpress-sa
+```
+
+- Grant the anyuid SCC 
+
+```oc
+oc adm policy add-scc-to-user anyuid -z wordpress-sa
+```
+
+- Configure the wordpress deployment to use the wordpress-sa service account
+
+```oc
+oc set sa dc/ocp-schedule-wordpress wordpress-sa
+```
+
+- Use the oc expose command to create a route to the wordpress application
+
+
+```oc
+oc expose service/ocp-schedule-wordpress  --hostname wordpress-review.apps.fiserv.openshift.training
 ```
 
 ### References: 
