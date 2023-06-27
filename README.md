@@ -5,7 +5,7 @@
 
 == Login
 
-oc login -u kubeadmin -p MMTUc-TnXjo-NFyh3-aeWmC https://api.ocp4.example.com:6443
+oc login -u kubeadmin -p ${PASS} https://api.ocp4.training.com:6443
 
  oc whoami -t
  
