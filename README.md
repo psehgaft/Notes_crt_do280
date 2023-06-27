@@ -1,5 +1,73 @@
 # Notes_crt_do280
 
+## Comands
+
+
+== Login
+
+oc login -u kubeadmin -p MMTUc-TnXjo-NFyh3-aeWmC https://api.ocp4.example.com:6443
+
+ oc whoami -t
+ 
+
+== Cluster management
+
+oc get clusterversion
+oc describe clusterversion
+
+oc get clusteroperators
+oc get co
+
+== logs
+
+oc adm node-logs -u crio my-node-name
+oc adm node-logs -u kubelet my-node-name
+oc adm node-logs my-node-name
+
+ oc logs my-pod-name
+ oc logs my-pod-name -c my-container-name 
+
+ oc get pod --loglevel 6
+
+oc get pod --loglevel 10
+
+== Node management
+
+oc debug node/my-node-name
+
+oc get nodes
+
+oc adm top node
+
+oc describe node my-node-name
+
+== Deployment management
+
+oc debug deployment/my-deployment-name --as-root
+
+== Registry
+
+oc get pod -n openshift-image-registry
+
+== Sotorage
+
+oc set volumes deployment/example-application --add --name example-storage --type pvc --claim-class nfs-storage --claim-mode rwo --claim-size 15Gi --mount-path /var/lib/example-app --claim-name example-storage
+
+oc set volumes deployment/postgresql-persistent --add --name postgresql-storage --type pvc --claim-class nfs-storage --claim-mode rwo --claim-size 10Gi --mount-path /var/lib/pgsql --claim-name postgresql-storage
+
+oc set volumes deployment/postgresql-persistent2 --add --name postgresql-storage --type pvc --claim-name postgresql-storage --mount-path /var/lib/pgsql
+
+== users
+
+ oc delete secret kubeadmin -n kube-system
+
+ oc get oauth cluster -o yaml > oauth.yaml
+
+ oc replace -f oauth.yaml
+
+
+
+
 ## Openshift Container Platform Features
 
 Native SO RHCoreOS
