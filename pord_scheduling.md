@@ -1,5 +1,67 @@
 # Notes_crt_do280
 
+## Users Authentications
+
+Add users and httpasswd identity
+
+```sh
+dnf isntall -y httpd-tools
+
+htpasswd -b -B -c htpassd.users user password
+
+htpasswd -b -B htpassd.users user password
+```
+
+## Remove taint from OpenShift Container Platform - Node
+
+```sh
+oc adm taint nodes node key=vvalue:NoSchedule
+```
+
+```sh
+oc adm taint nodes node1 key1:NoSchedule-
+```
+
+Add a toleration to a dc by editing the Pod spec to include a tolerations stanza:
+
+```sh
+spec:
+  tolerations:
+  - key: "key1"
+    operator: "Equal"
+    value: "value1"
+    effect: "NoSchedule"
+  - key: "key1"
+    operator: "Equal"
+    value: "value1"
+    effect: "NoExecute"
+```
+
+## Secrets
+
+Add secret to dc
+
+```sh
+name: test
+namespace: ""
+runtime: go
+...
+envs:
+- name: EXAMPLE
+  value: '{{ secret:mysecret:key }}'
+```
+
+## Service account
+
+```sh
+oc create sa managers
+
+oc policy add-role-to-group edit system:serviceaccounts:managers -n my-project
+
+oc policy add-role-to-group default system:serviceaccounts:managers -n my-project
+
+```
+
 ## Controlling Pod Scheduling
 
 ### Labeling Nodes
