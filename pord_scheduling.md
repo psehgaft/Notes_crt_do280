@@ -51,6 +51,17 @@ envs:
   value: '{{ secret:mysecret:key }}'
 ```
 
+## Service account
+
+```sh
+oc create sa managers
+
+oc policy add-role-to-group edit system:serviceaccounts:managers -n my-project
+
+oc policy add-role-to-group default system:serviceaccounts:managers -n my-project
+
+```
+
 ## Controlling Pod Scheduling
 
 ### Labeling Nodes
