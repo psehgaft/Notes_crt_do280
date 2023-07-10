@@ -2,11 +2,15 @@
 
 ## Users Authentications
 
+Add users and httpasswd identity
+
+```sh
 dnf isntall -y httpd-tools
 
 htpasswd -b -B -c htpassd.users user password
 
 htpasswd -b -B htpassd.users user password
+```
 
 ## Remove taint from OpenShift Container Platform - Node
 
