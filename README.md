@@ -326,5 +326,19 @@ oc set sa dc/ocp-schedule-wordpress wordpress-sa
 oc expose service/ocp-schedule-wordpress  --hostname wordpress-review.apps.fiserv.openshift.training
 ```
 
+## Update
+
+```oc
+oc patch clusterversion
+
+oc get machinehealthcheck -n openshift-machine-api
+
+oc adm upgrade --clear
+
+```
+
+
+
+
 ### References: 
 https://docs.openshift.com/container-platform/4.10/cli_reference/openshift_cli/getting-started-cli.html
