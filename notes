@@ -1,0 +1,46 @@
+1- Configure httpass auth provider with 5 users (user1, user2, user3, Marc and user4) 
+2- Give 1 person(user4) cluster admin, give 1 person (Marc) admin, give 1 person (user3) view, and the last 2 people nothing
+3- Create 2 groups and assign 2 people (user1 & user2) to group Pilot and 1 person (user3) to group Commander
+4- Create 5 projects (Apple, Banana, Cherry, Durian, Elderberry)
+5- Assign group Pilot  with view access to Apple, Assign group  Commander with admin access to Banana
+
+  source /usr/local/etc/ocp4.config
+  
+  oc patch clusterrolebinding.rbac self-provisioners -p '{"subjects": null}'
+
+  oc adm policy remove-cluster-role-from-group self-provisioner system:authenticated:oauth
+
+  oc get oauth cluster -o yaml > oauth.yaml
+  oc replace -f oauth.yaml
+  
+  htpasswd -c -B -b /tmp/htpasswd student redhat123
+  htpasswd -b /tmp/htpasswd student redhat1234
+  htpasswd -D /tmp/htpasswd student
+  oc create secret generic htpasswd-secret --from-file htpasswd=/tmp/htpasswd -n openshift-config
+  oc extract secret/htpasswd-secret -n openshift-config --to /tmp/ --confirm /tmp/htpasswd
+  oc set data secret/htpasswd-secret --from-file htpasswd=/tmp/htpasswd -n openshift-config
+
+  oc adm policy add-cluster-role-to-user cluster-admin student
+
+  oc policy add-role-to-user role-name username -n project
+  
+    oc adm policy remove-cluster-role-from-user cluster-role username
+
+  oc adm groups new dev-group
+  oc adm groups add-users dev-group developer
+
+
+6- Deploy an operator to project Hello only. It has to be Automatic and enable monitoring
+7- Create a PV and PVC
+8- Deploy http application and assign Persistent Volume (PVC from step 7)
+9- Create Limit range with Min/Max and RequestDefault Requests for Container, and Min/Max for Pod
+10- Create HorizontalPod Autoscaler with min 3 replicas and max 6 replicas with CPU % to be 50 
+11- Debug application that cannot run (tip: enable anyuuid on project)
+12- Create NetworkPolicy for 2 projects that allow project httpd communicate to project mariadb on port 3306
+13- Deploy application using image
+14- Deploy application httpd and create configmap that has a key:value (Hello:Word)
+15- Create a support file ocp-clusterID.tar.gz and upload file to directory /usr/lib/support
+16: Create secret
+17: Debug application that cannot run (deploymentconfig is setup with a limit of 80Gi)
+18: Create secure route with provided .crt and .key file
+19- create cron job that runs at 2:05 pm every 2 days. And keep 14 days of successful runs
