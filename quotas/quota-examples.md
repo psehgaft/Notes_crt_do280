@@ -43,6 +43,9 @@ status:
 
 oc scale deployment test --replicas=8
 
+# Cluster side
+
+oc create clusterresourcequota example --project-label-selector=group=dev --hard=requests.cpu=10
 
 ```cluster-quota.yaml
 apiVersion: quota.openshift.io/v1
@@ -53,6 +56,7 @@ spec:
   quota: 1
     hard:
       limits.cpu: 4
+      request.cpu: 10
   selector: 2
     annotations: {}
     labels:
