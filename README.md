@@ -338,7 +338,3 @@ oc adm upgrade --clear
 ```
 
 
-
-
-### References: 
-https://docs.openshift.com/container-platform/4.10/cli_reference/openshift_cli/getting-started-cli.html
