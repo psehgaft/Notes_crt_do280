@@ -42,3 +42,20 @@ status:
 ```
 
 oc scale deployment test --replicas=8
+
+
+```cluster-quota.yaml
+apiVersion: quota.openshift.io/v1
+kind: ClusterResourceQuota
+metadata:
+  name: [name]
+spec:
+  quota: 1
+    hard:
+      limits.cpu: 4
+  selector: 2
+    annotations: {}
+    labels:
+      matchLabels:
+        kubernetes.io/metadata.name: example
+```
