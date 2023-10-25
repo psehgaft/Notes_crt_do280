@@ -57,5 +57,5 @@ spec:
     annotations: {}
     labels:
       matchLabels:
-        kubernetes.io/metadata.name: example
+        key: value
 ```
