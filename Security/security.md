@@ -61,6 +61,10 @@ oc status
 
 oc expose svc/workgroup
 
+### Fix
+
+oc create route edge workgroup --service workgroup --port 8080 
+
 ```
 
 # Create certifiates
@@ -69,10 +73,39 @@ oc expose svc/workgroup
 
 openssl genrsa -out training.key 4096
 
-openssl req -new -key workgroup.key -out workgroup.csr -subj "/C=US/ST=Lab/L=Example/O=Workgroup/  CN=workgoup-http.apps.cluster-zzqnj.dynamic.redhatworkshops.io"
+openssl req -new -key workgroup.key -out workgroup.csr -subj "/C=US/ST=Lab/L=Example/O=Workgroup/  CN=workgoup.apps.cluster-zzqnj.dynamic.redhatworkshops.io"
 
 openssl x509 -req -in workgroup.csr -passin file:passphrase.txt -CA workgroup-CA.pem -CAkey workgroup-CA.key -CAcreateserial -out workgroup.crt -days 60 -sha256 -extfile workgroup.ext
 
-oc create secret tls todo-certs --cert certs/workgroup.crt --key certs/workgroup.key
+oc create secret tls workgroup --cert certs/workgroup.crt --key certs/workgroup.key
+
+---------------
+apiVersion: apps/v1
+kind: Deployment
+...output omitted...
+        volumeMounts:
+        - name: tls-certs
+          readOnly: true
+          mountPath: /usr/local/etc/ssl/certs
+...output omitted...
+      volumes:
+      - name: workgroup-vol
+        secret:
+          secretName: workgroup
+---
+apiVersion: v1
+kind: Service
+...output omitted...
+  ports:
+  - name: https
+    port: 8443
+    protocol: TCP
+    targetPort: 8443
+...output omitted...
+---------------
+
+oc set volumes deployment/workgroup
+
+oc create route passthrough workgroup --service workgroup --port 8443 --hostname workgoup.apps.cluster-zzqnj.dynamic.redhatworkshops.io
 
 ```
