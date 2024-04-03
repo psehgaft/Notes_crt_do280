@@ -1,11 +1,11 @@
 # Topics
 
 - Protect External Traffic with TLS
--- Allow and protect network connections to applications inside an OpenShift cluster.
+  - Allow and protect network connections to applications inside an OpenShift cluster.
 -Configure Network Policies
--- Restrict network traffic between projects and pods.
+  - Restrict network traffic between projects and pods.
 -Protect Internal Traffic with TLS
--- Configure and use automatic service certificates
+  - Configure and use automatic service certificates
 
 ## Overview
 
