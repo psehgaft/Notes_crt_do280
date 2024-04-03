@@ -109,3 +109,90 @@ oc set volumes deployment/workgroup
 oc create route passthrough workgroup --service workgroup --port 8443 --hostname workgoup.apps.cluster-zzqnj.dynamic.redhatworkshops.io
 
 ```
+
+## Network Policies
+
+
+```np-1.yml
+
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: network-1-policy
+  namespace: network-workgroup
+spec:
+  podSelector:  
+    matchLabels:
+      deployment: product-catalog
+  ingress:  
+  - from:  
+    - namespaceSelector:
+        matchLabels:
+          network: network-2
+      podSelector:
+        matchLabels:
+          role: test
+    ports:  
+    - port: 8080
+      protocol: TCP
+
+```
+
+```np-2.yml
+
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: network-2-policy
+  namespace: network-workgroup-2
+spec:
+  podSelector: {}
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          network: network-1
+```
+
+Deny all 
+
+```den.yml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: default-deny
+spec:
+  podSelector: {}
+```
+
+Allow all Openshift
+
+NOTE: Network policies do not block traffic from pods that use host networking to pods in the same node.
+
+```allow.yml
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-openshift-ingress
+spec:
+  podSelector: {}
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          policy-group.network.openshift.io/ingress: ""
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-from-openshift-monitoring
+spec:
+  podSelector: {}
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          network.openshift.io/policy-group: monitoring
+
+``` 
