@@ -35,3 +35,38 @@ Client -- TLS --> [tls.crt]+[tls.key] -- TLS2 --> [tls2.crt]+[tls2.key]
 NOTE: Network policies can help you to protect the internal traffic between your applications or between projects.
 
 
+
+# Exercise
+
+Deploy an application and create an unencrypted route for it.
+Create an OpenShift edge route with encryption.
+Create an OpenShift TLS secret and mount it in your application.
+
+```sh
+oc login --token=*** --server=https://api.***
+
+# Create project
+
+oc new-project network-workgroup
+
+# Create App
+
+oc new-app -name workgroup openshift/httpd:latest -n network-workgroup
+
+# Valiste service creation
+
+oc status
+
+# Create route
+
+oc expose svc/workgroup
+
+```
+
+# Create certifiates
+
+```sh
+
+openssl genrsa -out training.key 4096
+
+openssl req -new -key training.key -out workgroup.csr -subj "/C=US/ST=Lab/L=Example/O=Workgroup/  CN=workgoup-http.apps.cluster-zzqnj.dynamic.redhatworkshops.io"
