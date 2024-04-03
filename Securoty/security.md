@@ -69,4 +69,10 @@ oc expose svc/workgroup
 
 openssl genrsa -out training.key 4096
 
-openssl req -new -key training.key -out workgroup.csr -subj "/C=US/ST=Lab/L=Example/O=Workgroup/  CN=workgoup-http.apps.cluster-zzqnj.dynamic.redhatworkshops.io"
+openssl req -new -key workgroup.key -out workgroup.csr -subj "/C=US/ST=Lab/L=Example/O=Workgroup/  CN=workgoup-http.apps.cluster-zzqnj.dynamic.redhatworkshops.io"
+
+openssl x509 -req -in workgroup.csr -passin file:passphrase.txt -CA workgroup-CA.pem -CAkey workgroup-CA.key -CAcreateserial -out workgroup.crt -days 60 -sha256 -extfile workgroup.ext
+
+oc create secret tls todo-certs --cert certs/workgroup.crt --key certs/workgroup.key
+
+```
