@@ -1,6 +1,10 @@
 # Manage resources
 
-oc scale deployment test --replicas=[number of replicas]
+Create App:
+
+oc new-app -name [name] https://github.com/OpenShiftDemos/os-sample-python.git
+
+oc scale deployment [name] --replicas=[number of replicas]
 
 oc get pod,deployment -n [project]
 
@@ -10,17 +14,23 @@ oc describe node/[node]
 
 oc new-project studygroup
 
-oc create deployment studygroup --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
+oc create deployment [name] --image registry.ocp4.example.com:8443/redhattraining/hello-world-nginx
 
-oc set resources deployment studygroup --requests=cpu=1
+oc set resources deployment [name] --requests=cpu=1
 
-oc scale deployment studygroup --replicas=1
+oc scale deployment [name] --replicas=1
 
 ## Create Quotas
 
 1. Direct creation
 
-oc create quota [quotaa-name] --hard=requests.cpu=2
+oc create resourcequota [quotaa-name] --hard=requests.cpu=2
+
+oc create resourcequota [quotaa-name] --hard=count/pods=2
+
+oc create resourcequota [quotaa-name] --hard=count/deployment=1
+
+oc get resourcequota
 
 2. Yaml File
 
@@ -76,3 +86,6 @@ spec:
       matchLabels:
         key: value
 ```
+
+
+oc get event --sort-by .metadata.creationTimestamp
