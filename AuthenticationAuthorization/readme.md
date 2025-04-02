@@ -7,13 +7,7 @@ Configure authentication with the HTPasswd identity provider and assign roles to
 - Configure the HTPasswd identity provider for OpenShift authentication.
 - Define role-based access controls and apply permissions to users.
 
-## Sections
-- Configure Identity Providers (and Guided Exercise)
-- Define and Apply Permissions with RBAC (and Guided Exercise)
-- Lab: Authentication and Authorization
-
 ---
-
 ## Configure Identity Providers
 
 ### Objectives
@@ -54,4 +48,53 @@ Administrators can authenticate using:
 #### Step 1: Create an HTPasswd File
 Install `httpd-tools` and use `htpasswd` to manage users:
 ```sh
-htpasswd -c -B -b /tmp/htpasswd student redhat123
+htpasswd -c -B -b /tmp/htpasswd student friends123
+```
+
+#### Step 2: Create the HTPasswd Secret
+```sh
+oc create secret generic htpasswd-secret \  
+  --from-file htpasswd=/tmp/htpasswd -n openshift-config
+```
+
+#### Step 3: Configure OAuth Custom Resource
+Update the OAuth configuration to use the HTPasswd identity provider:
+```yaml
+apiVersion: config.openshift.io/v1
+kind: OAuth
+metadata:
+  name: cluster
+spec:
+  identityProviders:
+  - name: my_htpasswd_provider
+    mappingMethod: claim
+    type: HTPasswd
+    htpasswd:
+      fileData:
+        name: htpasswd-secret
+```
+
+#### Step 4: Update OAuth Configuration
+```sh
+oc get oauth cluster -o yaml > oauth.yaml
+# Edit oauth.yaml to include identity provider
+oc replace -f oauth.yaml
+```
+
+#### Step 5: Delete Users and Identities
+```sh
+htpasswd -D /tmp/htpasswd manager
+oc set data secret/htpasswd-secret \  
+  --from-file htpasswd=/tmp/htpasswd -n openshift-config
+oc delete user manager
+oc delete identity my_htpasswd_provider:manager
+```
+
+---
+## Define and Apply Permissions with RBAC
+### Guided Exercise: Assigning Administrative Privileges
+#### Step 1: Assign cluster-admin Role
+The cluster-admin role grants full cluster access:
+```sh
+oc adm policy add-cluster-role-to-user cluster-admin student
+```
