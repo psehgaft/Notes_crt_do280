@@ -48,7 +48,7 @@ Administrators can authenticate using:
 #### Step 1: Create an HTPasswd File
 Install `httpd-tools` and use `htpasswd` to manage users:
 ```sh
-htpasswd -c -B -b /tmp/htpasswd student friends123
+htpasswd -c -B -b /tmp/htpasswd amigo friends123
 ```
 
 #### Step 2: Create the HTPasswd Secret
