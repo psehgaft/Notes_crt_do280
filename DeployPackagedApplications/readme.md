@@ -1,7 +1,6 @@
 # Deploy Packaged Applications on OpenShift
 
 > **Audience:** Developers / Platform Engineers with basic `oc` and Kubernetes skills  
-> **Duration:** ~2 hours (100–110 min hands‑on + 10–20 min Q&A)  
 > **Cluster DNS:** `*.apps.psehgaft.training` | API: `https://api.psehgaft.training:6443`  
 > **Repo to store files:** `https://github.com/psehgaft/Notes_crt_do280/tree/main/DeployPackagedApplications`
 
@@ -58,8 +57,6 @@ cd Notes_crt_do280/DeployPackagedApplications
 5. **Lab 4 – Helm Charts**: Local chart install, upgrade, prod scale-out 
 6. **Wrap-up + Q&A**
 
-> Total ~110–120 min hands-on including short verifications between labs.
-
 ---
 
 ## Common setup (used by all labs)
@@ -84,7 +81,7 @@ We’ll use **public images from Quay** to avoid private-registry prerequisites.
 
 ---
 
-# Lab 1 — Deploy & Update from Raw YAML (15 min)
+# Lab 1 — Deploy & Update from Raw YAML 
 
 **Goal:** Deploy a simple stateless web app from YAML and update it.
 
@@ -164,7 +161,7 @@ oc get pods -l app=hello-web -o wide
 
 ---
 
-# Lab 2 — Deploy & Update with Kustomize (20 min)
+# Lab 2 — Deploy & Update with Kustomize
 
 **Goal:** Use base + overlays to manage dev/prod differences (image/tag/replicas/Route).
 
@@ -298,7 +295,7 @@ oc get route prod-kweb -o jsonpath='{.spec.host}'; echo
 
 ---
 
-# Lab 3 — OpenShift Templates (25 min)
+# Lab 3 — OpenShift Templates
 
 **Goal:** Deploy a **MySQL** database and an app that can initialize/use it, all via an OpenShift **Template** you control (no external classroom registry).
 
@@ -488,7 +485,7 @@ watch -n2 'oc get pods'
 
 ---
 
-# Lab 4 — Helm Charts (35 min)
+# Lab 4 — Helm Charts
 
 **Goal:** Install, upgrade, and scale an app using **Helm**. We’ll keep it self-contained by using a **local chart** (no external Helm repo needed).
 
@@ -638,7 +635,7 @@ oc get pods -l app.kubernetes.io/name=etherpad -o wide
 
 ---
 
-## Cleanup (optional, 5 min)
+## Cleanup 
 
 ```bash
 for ns in packaged-yaml packaged-kustomize packaged-templates \
