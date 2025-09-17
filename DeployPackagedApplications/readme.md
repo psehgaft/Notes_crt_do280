@@ -51,12 +51,12 @@ cd Notes_crt_do280/DeployPackagedApplications
 
 ## Agenda & Timeboxes (approx.)
 
-1. **Login + Project hygiene** (5 min)  
-2. **Lab 1 – Plain YAML**: Deploy & update from raw manifests (15 min)  
-3. **Lab 2 – Kustomize**: Overlays for dev/prod, image/replicas customizations (20 min)  
-4. **Lab 3 – OpenShift Templates**: Parameterized app + DB via template (25 min)  
-5. **Lab 4 – Helm Charts**: Local chart install, upgrade, prod scale-out (35 min)  
-6. **Wrap-up + Q&A** (10 min)
+1. **Login + Project hygiene**  
+2. **Lab 1 – Plain YAML**: Deploy & update from raw manifests 
+3. **Lab 2 – Kustomize**: Overlays for dev/prod, image/replicas customizations  
+4. **Lab 3 – OpenShift Templates**: Parameterized app + DB via template  
+5. **Lab 4 – Helm Charts**: Local chart install, upgrade, prod scale-out 
+6. **Wrap-up + Q&A**
 
 > Total ~110–120 min hands-on including short verifications between labs.
 
