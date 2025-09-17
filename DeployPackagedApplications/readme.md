@@ -10,7 +10,7 @@ This workshop is **fully self-contained** and designed so that **each lab builds
 
 ---
 
-## ✅ Pre‑work (10 min)
+## Pre‑work
 
 Make sure the following are ready **before** starting. These steps make the labs reproducible in any OpenShift 4.12+ cluster.
 
