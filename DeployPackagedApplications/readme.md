@@ -1,4 +1,4 @@
-# Deploy Packaged Applications on OpenShift — 2‑Hour Hands‑On (psehgaft.training)
+# Deploy Packaged Applications on OpenShift
 
 > **Audience:** Developers / Platform Engineers with basic `oc` and Kubernetes skills  
 > **Duration:** ~2 hours (100–110 min hands‑on + 10–20 min Q&A)  
