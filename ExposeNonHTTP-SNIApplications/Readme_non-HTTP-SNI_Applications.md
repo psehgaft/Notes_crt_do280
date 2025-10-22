@@ -31,14 +31,14 @@ You’ll install minimal sample apps, expose them safely, test connectivity, and
 
 ## Pre‑requisites
 
-- Cluster access with `kubectl` or `oc` and permissions to create namespaces, Deployments, Services, and (for Multus) `NetworkAttachmentDefinition`.
+- Cluster access with `oc` or `oc` and permissions to create namespaces, Deployments, Services, and (for Multus) `NetworkAttachmentDefinition`.
 - One of:
   - **Cloud LB available** (AKS/EKS/GKE/ROSA/ARO/OpenShift on cloud), **or**
   - **On‑prem LB** via **MetalLB** (Operator or Helm) with a free pool of IPs.
 - For Multus exercise, cluster must already have **Multus** (default on OpenShift) and at least **one node NIC** or bridge usable for a secondary network.
 - Local tools for testing: `nc` (nmap‑ncat), `curl`, `psql` (for PostgreSQL exercise).
 
-> **Tip (OpenShift):** Use `oc` commands; on vanilla Kubernetes use `kubectl`. All manifests are vendor‑neutral unless noted.
+> **Tip (OpenShift):** Use `oc` commands; on vanilla Kubernetes use `oc`. All manifests are vendor‑neutral unless noted.
 
 ---
 
@@ -115,25 +115,25 @@ spec:
 
 ```bash
 # Create namespace
-kubectl create ns "$NS_LB"
+oc create ns "$NS_LB"
 
 # Deploy
-kubectl -n "$NS_LB" apply -f virtual-rtsp.yaml
+oc -n "$NS_LB" apply -f virtual-rtsp.yaml
 
 # Expose
-kubectl -n "$NS_LB" expose deployment/virtual-rtsp \
+oc -n "$NS_LB" expose deployment/virtual-rtsp \
   --type=LoadBalancer --name="${LB_SVC_NAME}" --port="${APP_PORT}" --target-port="${APP_PORT}"
 
 # Watch for external IP
-kubectl -n "$NS_LB" get svc "${LB_SVC_NAME}" -w
+oc -n "$NS_LB" get svc "${LB_SVC_NAME}" -w
 ```
 
 When `EXTERNAL-IP` becomes available, test connectivity (replace the IP obtained):
 
 ```bash
-export EXT_IP="$(kubectl -n "$NS_LB" get svc ${LB_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
+export EXT_IP="$(oc -n "$NS_LB" get svc ${LB_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
 # Some clouds return hostname:
-[ -z "$EXT_IP" ] && export EXT_IP="$(kubectl -n "$NS_LB" get svc ${LB_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
+[ -z "$EXT_IP" ] && export EXT_IP="$(oc -n "$NS_LB" get svc ${LB_SVC_NAME} -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')"
 
 echo "LB address: $EXT_IP"
 
@@ -146,8 +146,8 @@ nc -vz "$EXT_IP" "${APP_PORT}"
 ### A.4 Cleanup (Section A)
 
 ```bash
-kubectl -n "$NS_LB" delete svc,deploy --all
-kubectl delete ns "$NS_LB"
+oc -n "$NS_LB" delete svc,deploy --all
+oc delete ns "$NS_LB"
 ```
 
 ---
@@ -217,23 +217,23 @@ spec:
 ### B.4 Deploy and Attach the Secondary Network
 
 ```bash
-kubectl create ns "$NS_MULTUS"
+oc create ns "$NS_MULTUS"
 
 # Create NAD in the same namespace as the Pods:
-envsubst < network-attachment-definition.yaml | kubectl -n "$NS_MULTUS" apply -f -
+envsubst < network-attachment-definition.yaml | oc -n "$NS_MULTUS" apply -f -
 
 # Add the Multus annotation to the Pod template:
 # Option 1: patch existing Deployment
-kubectl -n "$NS_MULTUS" apply -f nginx.yaml
+oc -n "$NS_MULTUS" apply -f nginx.yaml
 
-kubectl -n "$NS_MULTUS" patch deploy/nginx --type=json \
+oc -n "$NS_MULTUS" patch deploy/nginx --type=json \
   -p='[{"op":"add","path":"/spec/template/metadata/annotations","value":{"k8s.v1.cni.cncf.io/networks":"'${NAD_NAME}'"}}]'
 
-kubectl -n "$NS_MULTUS" rollout status deploy/nginx
+oc -n "$NS_MULTUS" rollout status deploy/nginx
 
 # Verify network status
-POD="$(kubectl -n "$NS_MULTUS" get pod -l app=nginx -o jsonpath='{.items[0].metadata.name}')"
-kubectl -n "$NS_MULTUS" get pod "$POD" -o jsonpath='{.metadata.annotations.k8s\.v1\.cni\.cncf\.io/network-status}{"\n"}'
+POD="$(oc -n "$NS_MULTUS" get pod -l app=nginx -o jsonpath='{.items[0].metadata.name}')"
+oc -n "$NS_MULTUS" get pod "$POD" -o jsonpath='{.metadata.annotations.k8s\.v1\.cni\.cncf\.io/network-status}{"\n"}'
 ```
 
 ### B.5 Test Connectivity from a Host that Reaches the Isolated Subnet
@@ -251,9 +251,9 @@ curl "http://${MULTUS_IP}:8080/"
 ### B.6 Cleanup (Section B)
 
 ```bash
-kubectl -n "$NS_MULTUS" delete deploy/nginx
-kubectl -n "$NS_MULTUS" delete network-attachment-definition ${NAD_NAME}
-kubectl delete ns "$NS_MULTUS"
+oc -n "$NS_MULTUS" delete deploy/nginx
+oc -n "$NS_MULTUS" delete network-attachment-definition ${NAD_NAME}
+oc delete ns "$NS_MULTUS"
 ```
 
 ---
@@ -270,26 +270,26 @@ kubectl delete ns "$NS_MULTUS"
 
 1. **RTSP‑like app via LoadBalancer**
    ```bash
-   kubectl create ns "$NS_LAB"-rtsp
-   kubectl -n "$NS_LAB"-rtsp apply -f virtual-rtsp.yaml
-   kubectl -n "$NS_LAB"-rtsp expose deploy/virtual-rtsp \
+   oc create ns "$NS_LAB"-rtsp
+   oc -n "$NS_LAB"-rtsp apply -f virtual-rtsp.yaml
+   oc -n "$NS_LAB"-rtsp expose deploy/virtual-rtsp \
      --type=LoadBalancer --name=virtual-rtsp-loadbalancer --port="${APP_PORT}" --target-port="${APP_PORT}"
-   kubectl -n "$NS_LAB"-rtsp get svc virtual-rtsp-loadbalancer -w
+   oc -n "$NS_LAB"-rtsp get svc virtual-rtsp-loadbalancer -w
    ```
    Test with:
    ```bash
-   export RTSP_ADDR="$(kubectl -n "$NS_LAB"-rtsp get svc virtual-rtsp-loadbalancer -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
+   export RTSP_ADDR="$(oc -n "$NS_LAB"-rtsp get svc virtual-rtsp-loadbalancer -o jsonpath='{.status.loadBalancer.ingress[0].ip}')"
    nc -vz "$RTSP_ADDR" "${APP_PORT}"
    ```
 
 2. **Nginx on a Multus secondary network**
    ```bash
-   kubectl create ns "$NS_LAB"-nginx
-   envsubst < network-attachment-definition.yaml | kubectl -n "$NS_LAB"-nginx apply -f -
-   kubectl -n "$NS_LAB"-nginx apply -f nginx.yaml
-   kubectl -n "$NS_LAB"-nginx patch deploy/nginx --type=json \
+   oc create ns "$NS_LAB"-nginx
+   envsubst < network-attachment-definition.yaml | oc -n "$NS_LAB"-nginx apply -f -
+   oc -n "$NS_LAB"-nginx apply -f nginx.yaml
+   oc -n "$NS_LAB"-nginx patch deploy/nginx --type=json \
      -p='[{"op":"add","path":"/spec/template/metadata/annotations","value":{"k8s.v1.cni.cncf.io/networks":"'${NAD_NAME}'"}}]'
-   kubectl -n "$NS_LAB"-nginx rollout status deploy/nginx
+   oc -n "$NS_LAB"-nginx rollout status deploy/nginx
    ```
    Validate from a reachable host:
    ```bash
@@ -345,8 +345,8 @@ kubectl delete ns "$NS_MULTUS"
 
    Deploy & test:
    ```bash
-   kubectl -n "$NS_LAB"-nginx apply -f postgres.yaml --dry-run=client -o yaml | envsubst | kubectl -n "$NS_LAB"-nginx apply -f -
-   kubectl -n "$NS_LAB"-nginx rollout status deploy/database
+   oc -n "$NS_LAB"-nginx apply -f postgres.yaml --dry-run=client -o yaml | envsubst | oc -n "$NS_LAB"-nginx apply -f -
+   oc -n "$NS_LAB"-nginx rollout status deploy/database
 
    # From a host that reaches the Multus subnet:
    psql -h "${MULTUS_STATIC_CIDR%/*}" -U "${PG_USER}" "${PG_DB}" -c 'SELECT 1;' <<<"${PG_PASSWORD}"
@@ -355,7 +355,7 @@ kubectl delete ns "$NS_MULTUS"
 ### Cleanup (Lab)
 
 ```bash
-kubectl delete ns "$NS_LAB"-rtsp "$NS_LAB"-nginx --ignore-not-found
+oc delete ns "$NS_LAB"-rtsp "$NS_LAB"-nginx --ignore-not-found
 ```
 
 ---
