@@ -1,0 +1,72 @@
+# Reusable templates (edit placeholders and apply).
+
+---
+# CatalogSource template for disconnected environments
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: {{ CATALOG_NAME | default: "custom-catalog" }}
+  namespace: openshift-marketplace
+  annotations:
+    purpose: "Disconnected/mirrored catalog"
+spec:
+  sourceType: grpc
+  image: {{ CATALOG_IMAGE | default: "registry.example.com/olm/catalog:latest" }}
+  displayName: {{ CATALOG_DISPLAY | default: "Custom Operator Catalog" }}
+  publisher: {{ CATALOG_PUBLISHER | default: "Your Org" }}
+  updateStrategy:
+    registryPoll:
+      interval: 10m
+
+---
+# OperatorGroup template
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: {{ OPERATORGROUP_NAME | default: "example-operator-group" }}
+  namespace: {{ OPERATOR_NAMESPACE | default: "example-namespace" }}
+spec:
+  # Use either explicit targetNamespaces or a selector (labels)
+  targetNamespaces:
+    - {{ TARGET_NAMESPACE | default: "example-namespace" }}
+  # selector:
+  #   matchLabels:
+  #     team: platform
+
+---
+# Subscription template
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: {{ PACKAGE_NAME | default: "my-operator" }}
+  namespace: {{ OPERATOR_NAMESPACE | default: "example-namespace" }}
+spec:
+  channel: {{ CHANNEL | default: "stable" }}
+  installPlanApproval: {{ APPROVAL | default: "Manual" }}
+  name: {{ PACKAGE_NAME | default: "my-operator" }}
+  source: {{ CATALOG | default: "redhat-operators" }}
+  sourceNamespace: openshift-marketplace
+
+---
+# Namespace with monitoring/pss labels (adjust per policy)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ OPERATOR_NAMESPACE | default: "example-namespace" }}
+  labels:
+    openshift.io/cluster-monitoring: "true"
+    pod-security.kubernetes.io/enforce: privileged
+
+---
+# FileIntegrity CR template
+apiVersion: fileintegrity.openshift.io/v1alpha1
+kind: FileIntegrity
+metadata:
+  name: {{ FI_NAME | default: "example-fileintegrity" }}
+  namespace: {{ OPERATOR_NAMESPACE | default: "openshift-file-integrity" }}
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+  config:
+    gracePeriod: {{ GRACE | default: 900 }}
+    maxBackups: 5

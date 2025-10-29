@@ -1,0 +1,1000 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"networking.k8s.io/v1","kind":"Ingress","metadata":{"annotations":{"nginx.ingress.kubernetes.io/backend-protocol":"HTTPS","nginx.ingress.kubernetes.io/use-regex":"true"},"name":"ingress-produccion","namespace":"produccion"},"spec":{"ingressClassName":"nginx","rules":[{"http":{"paths":[{"backend":{"service":{"name":"audit-sc","port":{"number":8086}}},"path":"/api/AuditBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-limited-package","port":{"number":8082}}},"path":"/api/FindLimitedPackageBS","pathType":"Prefix"},{"backend":{"service":{"name":"send-sms","port":{"number":8084}}},"path":"/api/SendSMSBS","pathType":"Prefix"},{"backend":{"service":{"name":"subscribe-limited-package","port":{"number":8085}}},"path":"/api/SubscribeLimitedPackageCS","pathType":"Prefix"},{"backend":{"service":{"name":"is-alive","port":{"number":8443}}},"path":"/isalive","pathType":"Prefix"},{"backend":{"service":{"name":"find-status-account-by-phone-number","port":{"number":8081}}},"path":"/api/FindStatusAccountByPhoneNumberBS","pathType":"Prefix"},{"backend":{"service":{"name":"open-customer-holder-change-process","port":{"number":8088}}},"path":"/api/openCustomerHolderChangeProcessBS","pathType":"Prefix"},{"backend":{"service":{"name":"close-customer-holder-change-process","port":{"number":8087}}},"path":"/api/closeCustomerHolderChangeProcessBS","pathType":"Prefix"},{"backend":{"service":{"name":"get-customer-holder-change-process-status","port":{"number":8089}}},"path":"/api/getCustomerHolderChangeProcessStatusBS","pathType":"Prefix"},{"backend":{"service":{"name":"send-sms-notification","port":{"number":8090}}},"path":"/api/sendSMSNotificationBS","pathType":"Prefix"},{"backend":{"service":{"name":"add-comment-to-prepaid-account","port":{"number":8091}}},"path":"/api/addCommentToPrepaidAccountBS","pathType":"Prefix"},{"backend":{"service":{"name":"create-global-transaction","port":{"number":8092}}},"path":"/api/createGlobalTransactionBS","pathType":"Prefix"},{"backend":{"service":{"name":"validate-status-altamira-transaction","port":{"number":8093}}},"path":"/api/validateStatusAltamiraTransactionBS","pathType":"Prefix"},{"backend":{"service":{"name":"disconnect-prepaid-account","port":{"number":8094}}},"path":"/api/disconectPrepaidAccountBS","pathType":"Prefix"},{"backend":{"service":{"name":"disconnect-prepaid-account-ss","port":{"number":8095}}},"path":"/api/disconectPrepaidAccountSS","pathType":"Prefix"},{"backend":{"service":{"name":"find-simcard-puk-code","port":{"number":8080}}},"path":"/api/FindSimCardPukCodeCS","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-by-subscriber-id","port":{"number":8080}}},"path":"/api/FindAccountBySubscriberIdBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-prepaid-product-specification-change","port":{"number":8080}}},"path":"/api/FindPrepaidProductSpecificationChangeBS","pathType":"Prefix"},{"backend":{"service":{"name":"update-prepaid-subscriber-plan","port":{"number":8080}}},"path":"/api/UpdatePrepaidSubscriberPlanBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-available-prepaid-plans","port":{"number":8080}}},"path":"/api/FindAvailablePrepaidPlansBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-postpaid-subscriber-iccid","port":{"number":8080}}},"path":"/api/FindPostpaidSubscriberICCIDBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-limited-package-v2","port":{"number":8080}}},"path":"/api/v2/FindLimitedPackageBS","pathType":"Prefix"},{"backend":{"service":{"name":"reversal-adjustment","port":{"number":8080}}},"path":"/api/ReversalAdjustment","pathType":"Prefix"},{"backend":{"service":{"name":"reversal-adjustment-ss","port":{"number":8080}}},"path":"/api/Subscriber/ReversalAdjustmentSS","pathType":"Prefix"},{"backend":{"service":{"name":"find-postpaid-account-info","port":{"number":8080}}},"path":"/api/FindPostpaidAccountInfo","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-relation-ship-by-use-account-id","port":{"number":8081}}},"path":"/api/FindAccountRelationShipByUseAccountId","pathType":"Prefix"},{"backend":{"service":{"name":"find-prepaid-holder-customer-by-account","port":{"number":8080}}},"path":"/api/FindPrepaidHolderCustomerByAccountBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-promotions-by-account","port":{"number":8080}}},"path":"/api/FindPromotionsByAccount","pathType":"Prefix"},{"backend":{"service":{"name":"find-available-allowances","port":{"number":8085}}},"path":"/api/FindAvailableAllowances","pathType":"Prefix"},{"backend":{"service":{"name":"find-prepaid-customer-by-subscriber-id","port":{"number":8080}}},"path":"/api/FindPrepaidCustomerBySubscriberId","pathType":"Prefix"},{"backend":{"service":{"name":"find-features-by-account","port":{"number":8080}}},"path":"/api/FindFeaturesByAccount","pathType":"Prefix"},{"backend":{"service":{"name":"find-financial-info-by-subscriber-id","port":{"number":8088}}},"path":"/api/FindFinancialInfoBySubscriberId","pathType":"Prefix"},{"backend":{"service":{"name":"find-product-offer-by-customer-account","port":{"number":8080}}},"path":"/api/FindProductOfferByCustomerAccountSS","pathType":"Prefix"},{"backend":{"service":{"name":"find-prepaid-allowances-by-subscriber-id","port":{"number":8089}}},"path":"/api/FindPrepaidAllowancesBySubscriberIdSS","pathType":"Prefix"},{"backend":{"service":{"name":"find-holder-customer-by-account-id","port":{"number":8080}}},"path":"/api/FindHolderCustomerByAccountId","pathType":"Prefix"},{"backend":{"service":{"name":"query-subscriber-details","port":{"number":8097}}},"path":"/api/querySubscriberDetails","pathType":"Prefix"},{"backend":{"service":{"name":"query-boltons-details","port":{"number":8100}}},"path":"/api/queryBoltonsDetails","pathType":"Prefix"},{"backend":{"service":{"name":"subscribe-bolton-v3","port":{"number":8080}}},"path":"/api/v3/SubscribeBoltonAltamira","pathType":"Prefix"},{"backend":{"service":{"name":"subscribe-limited-package-v2","port":{"number":8080}}},"path":"/api/v2/SubscribeLimitedPackageCS","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-activation-date","port":{"number":8080}}},"path":"/api/findAccountActivationDate","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-balance","port":{"number":8080}}},"path":"/accounts/.*/balances","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-balance-soap-200","port":{"number":8080}}},"path":"/services/FindAccountBalance_v1","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-balance-soap","port":{"number":8080}}},"path":"/services/FindAccountBalance","pathType":"Prefix"},{"backend":{"service":{"name":"find-enabled-currencies","port":{"number":8080}}},"path":"/api/findEnabledCurrencies","pathType":"Prefix"},{"backend":{"service":{"name":"find-enabled-currencies-soap","port":{"number":8080}}},"path":"/services/FindEnabledCurrencies","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-balance","port":{"number":8080}}},"path":"/api/findSubscriberBalance","pathType":"Prefix"},{"backend":{"service":{"name":"find-reason-code-types","port":{"number":8080}}},"path":"/api/findReasonCodeTypes","pathType":"Prefix"},{"backend":{"service":{"name":"find-billing-migration-status","port":{"number":8080}}},"path":"/api/findBillingMigrationStatus","pathType":"Prefix"},{"backend":{"service":{"name":"find-billing-migration-status-soap","port":{"number":8080}}},"path":"/services/FindBillingMigrationStatus","pathType":"Prefix"},{"backend":{"service":{"name":"prs-find-account-validator-digits","port":{"number":8080}}},"path":"/api/findAccountValidatorDigits","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-boltons","port":{"number":8080}}},"path":"/api/findSubscriberBoltons","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-financial-movements","port":{"number":8080}}},"path":"/api/findAccountFinancialMovements","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-invoice-detail","port":{"number":8080}}},"path":"/invoices/.*/appliedCharges","pathType":"Prefix"},{"backend":{"service":{"name":"account-charge","port":{"number":8080}}},"path":"/account/.*/events","pathType":"Prefix"},{"backend":{"service":{"name":"account-charge-soap","port":{"number":8080}}},"path":"/services/AccountCharge","pathType":"Prefix"},{"backend":{"service":{"name":"account-charge-reversal-soap","port":{"number":8080}}},"path":"/services/AccountChargeReversal","pathType":"Prefix"},{"backend":{"service":{"name":"account-payment-reversal","port":{"number":8080}}},"path":"/accounts/.*/refunds","pathType":"Prefix"},{"backend":{"service":{"name":"account-payment-reversal-soap","port":{"number":8080}}},"path":"/services/AccountPaymentReversal","pathType":"Prefix"},{"backend":{"service":{"name":"account-payment-reversal-soap-200","port":{"number":8080}}},"path":"/services/AccountPaymentReversal_v1","pathType":"Prefix"},{"backend":{"service":{"name":"prs-find-payer-accounts-by-document","port":{"number":8080}}},"path":"/api/findPayerAccountsByDocument","pathType":"Prefix"},{"backend":{"service":{"name":"find-payer-accounts-by-document-soap","port":{"number":8080}}},"path":"/services/FindPayerAccountsByDocument","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-invoices","port":{"number":8080}}},"path":"/accounts/.*/invoices","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-invoice-soap","port":{"number":8080}}},"path":"/services/FindAccountInvoices","pathType":"Prefix"},{"backend":{"service":{"name":"get-account-billing-info","port":{"number":8080}}},"path":"/api/getAccountBillingInfo","pathType":"Prefix"},{"backend":{"service":{"name":"account-payment","port":{"number":8080}}},"path":"/accounts/.*/payments","pathType":"Prefix"},{"backend":{"service":{"name":"account-payment-soap","port":{"number":8080}}},"path":"/services/AccountPayment","pathType":"Prefix"},{"backend":{"service":{"name":"account-payment-soap-200","port":{"number":8080}}},"path":"/services/AccountPayment_v1","pathType":"Prefix"},{"backend":{"service":{"name":"bss-modify-bill-cycle","port":{"number":8080}}},"path":"/accounts/.*/cycleSpecification","pathType":"Prefix"},{"backend":{"service":{"name":"prs-validate-otp","port":{"number":8080}}},"path":"/api/validateOtp","pathType":"Prefix"},{"backend":{"service":{"name":"work-order","port":{"number":8080}}},"path":"/api/workOrder","pathType":"Prefix"},{"backend":{"service":{"name":"prs-work-order","port":{"number":8080}}},"path":"/services/WorkOrder","pathType":"Prefix"},{"backend":{"service":{"name":"generate-account-penalty","port":{"number":8080}}},"path":"/api/generateAccountPenalty","pathType":"Prefix"},{"backend":{"service":{"name":"find-bill-cycles","port":{"number":8080}}},"path":"/api/findBillCycles","pathType":"Prefix"},{"backend":{"service":{"name":"apply-credit-note","port":{"number":8080}}},"path":"/api/applyCreditNote","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-balance-by-customer","port":{"number":8080}}},"path":"/api/findAccountBalanceByCustomer","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-traffic-by-identifier","port":{"number":8080}}},"path":"/api/findSubscriberTraffic","pathType":"Prefix"},{"backend":{"service":{"name":"substitute-invoice","port":{"number":8080}}},"path":"/customerBillOnDemand","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-status","port":{"number":8080}}},"path":"/api/subscriberStatus","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-status-soap","port":{"number":8080}}},"path":"/services/findSubscriberStatus","pathType":"Prefix"},{"backend":{"service":{"name":"find-financial-account-info-by-id","port":{"number":8080}}},"path":"/api/FindFinancialAccountInfoByIdSS","pathType":"Prefix"},{"backend":{"service":{"name":"find-complementary-account-info","port":{"number":8080}}},"path":"/api/FindComplementaryAccountInfo","pathType":"Prefix"},{"backend":{"service":{"name":"get-bolton-unit","port":{"number":8080}}},"path":"/api/getBoltonUnit","pathType":"Prefix"},{"backend":{"service":{"name":"coupons-details","port":{"number":8080}}},"path":"/api/couponsDetails","pathType":"Prefix"},{"backend":{"service":{"name":"reconnect-account","port":{"number":8080}}},"path":"/api/reconnectAccount","pathType":"Prefix"},{"backend":{"service":{"name":"prs-billing-account","port":{"number":8080}}},"path":"/accountManagement/v4/billingAccount","pathType":"Prefix"},{"backend":{"service":{"name":"prs-usage-specification","port":{"number":8080}}},"path":"/accountManagement/v4/partyAccounts","pathType":"Prefix"},{"backend":{"service":{"name":"disconnect-account-by-final-state","port":{"number":8080}}},"path":"/api/disconnectAccountByFinalState","pathType":"Prefix"},{"backend":{"service":{"name":"get-postpaid-fiscal-information","port":{"number":8080}}},"path":"/api/getPostPaidFiscalInformation","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-status-mcontenido","port":{"number":8080}}},"path":"/api/subscriberStatusMcontenido","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-status-mcontenido-pre","port":{"number":8080}}},"path":"/api/FindSubscriberStatusMcontenidoPreBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-status-mcontenido-pos","port":{"number":8080}}},"path":"/api/FindSubscriberStatusMcontenidoPosBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-subscriber-status-mcontenido-soap","port":{"number":8080}}},"path":"/services/findSubscriberStatusMcontenido","pathType":"Prefix"},{"backend":{"service":{"name":"query-sos-top-ups-details","port":{"number":8080}}},"path":"/api/querySOSTopUps","pathType":"Prefix"},{"backend":{"service":{"name":"query-balances","port":{"number":8080}}},"path":"/api/queryBalances","pathType":"Prefix"},{"backend":{"service":{"name":"find-customer-by-doc-id","port":{"number":8080}}},"path":"/customerInformation/v1.4.0/users/.*/customers","pathType":"Prefix"},{"backend":{"service":{"name":"user-profile","port":{"number":8080}}},"path":"/userProfile/v3","pathType":"Prefix"},{"backend":{"service":{"name":"find-prepaid-customer-document-by-subscriber-id","port":{"number":8080}}},"path":"/api/FindPrepaidCustomerDocumentBySubscriberId","pathType":"Prefix"},{"backend":{"service":{"name":"find-customer-document-by-subscriber-id","port":{"number":8080}}},"path":"/api/findCustomerDocumentBySubscriberId","pathType":"Prefix"},{"backend":{"service":{"name":"payment","port":{"number":8080}}},"path":"/api/payment","pathType":"Prefix"},{"backend":{"service":{"name":"find-customer-accounts-list-by-doc-id-v2","port":{"number":8080}}},"path":"/accountManagement/v4/partyAccount","pathType":"Prefix"},{"backend":{"service":{"name":"query-account-role-by-customer","port":{"number":8080}}},"path":"/api/queryAccountRoleByCustomer","pathType":"Prefix"},{"backend":{"service":{"name":"find-datasim","port":{"number":8080}}},"path":"/api/datasim","pathType":"Prefix"},{"backend":{"service":{"name":"find-date-sim-postpaid","port":{"number":8080}}},"path":"/api/datesimpospaid","pathType":"Prefix"},{"backend":{"service":{"name":"ms-bss-simswap","port":{"number":8080}}},"path":"/api/SimSwap","pathType":"Prefix"},{"backend":{"service":{"name":"bss-add-customer-contact-medium","port":{"number":8080}}},"path":"/customer/.*/addContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"add-customer-contact-medium","port":{"number":8080}}},"path":"/api/addCustomerContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"prs-find-accounts-by-contact-medium","port":{"number":8080}}},"path":"/api/findAccountByContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-by-contact-medium","port":{"number":8080}}},"path":"/api/getAccountByContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"find-available-accounts-by-contact-medium","port":{"number":8080}}},"path":"/api/findAvailableAccountsByContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"find-account-by-customer-contact-medium","port":{"number":8080}}},"path":"/api/findAccountByCustomerContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"bss-update-customer-contact-medium","port":{"number":8080}}},"path":"/customer/.*/updateContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"update-customer-contact-medium","port":{"number":8080}}},"path":"/api/updateCustomerContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"create-account-contact-medium","port":{"number":8080}}},"path":"/api/createAccountContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"assign-contact-medium","port":{"number":8080}}},"path":"/account/.*/assignContactMedium","pathType":"Prefix"},{"backend":{"service":{"name":"change-acct-info","port":{"number":8080}}},"path":"/api/changeAcctInfo","pathType":"Prefix"},{"backend":{"service":{"name":"ms-bss-simswap","port":{"number":8080}}},"path":"/api/sim-swap/v0/retrieve-date","pathType":"Prefix"},{"backend":{"service":{"name":"find-contact-medium-by-id","port":{"number":8080}}},"path":"/api/findContactMediumById","pathType":"Prefix"},{"backend":{"service":{"name":"device-status-connector","port":{"number":8080}}},"path":"/api/deviceStatusConnector","pathType":"Prefix"},{"backend":{"service":{"name":"rest-udb-connector","port":{"number":8080}}},"path":"/UDB/v1/UDB","pathType":"Prefix"},{"backend":{"service":{"name":"find-postpaid-customer-document-by-subscriber-id","port":{"number":8080}}},"path":"/api/FindPostpaidCustomerDocumentBySubscriberId","pathType":"Prefix"},{"backend":{"service":{"name":"find-individual-customer-by-doc-id","port":{"number":8080}}},"path":"/api/FindIndividualCustomerByDocId","pathType":"Prefix"},{"backend":{"service":{"name":"find-organization-customer-by-doc-id","port":{"number":8080}}},"path":"/api/FindOrganizationCustomerByDocId","pathType":"Prefix"},{"backend":{"service":{"name":"find-prepaid-account-by-document","port":{"number":8080}}},"path":"/api/FindPrepaidAccountByDocument","pathType":"Prefix"},{"backend":{"service":{"name":"find-postpaid-account-by-document-v2","port":{"number":8080}}},"path":"/api/v2/FindPostpaidAccountByDocument","pathType":"Prefix"},{"backend":{"service":{"name":"find-puk-code","port":{"number":8080}}},"path":"/api/FindPukCodeBS","pathType":"Prefix"},{"backend":{"service":{"name":"find-prepaid-subscriber-iccid","port":{"number":8080}}},"path":"/api/FindPrepaidSubscriberICCID","pathType":"Prefix"},{"backend":{"service":{"name":"activate-limited-package-v2","port":{"number":8080}}},"path":"/api/v2/ActivateLimitedPackage","pathType":"Prefix"},{"backend":{"service":{"name":"ms-bss-simswap-check","port":{"number":8080}}},"path":"/api/sim-swap/v0/check","pathType":"Prefix"},{"backend":{"service":{"name":"kannel-send-sms","port":{"number":8080}}},"path":"/api/sendsmskannel","pathType":"Prefix"},{"backend":{"service":{"name":"validate-movil-x-doc-iden","port":{"number":8080}}},"path":"/api/validatemovilxdociden","pathType":"Prefix"},{"backend":{"service":{"name":"find-prepaid-account-activation-date","port":{"number":8080}}},"path":"/api/findPrepaidAccountActivationDate","pathType":"Prefix"},{"backend":{"service":{"name":"find-postpaid-account-activation-date","port":{"number":8080}}},"path":"/api/findPostpaidAccountActivationDate","pathType":"Prefix"},{"backend":{"service":{"name":"ms-prs-smartbill-jwt","port":{"number":8080}}},"path":"/v1/tokens","pathType":"Prefix"},{"backend":{"service":{"name":"validate-json-web-token","port":{"number":8080}}},"path":"/v1/validateToken","pathType":"Prefix"},{"backend":{"service":{"name":"unidigital-get-token","port":{"number":8080}}},"path":"/api/unidigitalGetToken","pathType":"Prefix"},{"backend":{"service":{"name":"unidigital-get-digital-tax-document-numbers","port":{"number":8080}}},"path":"/api/getDigitalTaxDocumentNumbers","pathType":"Prefix"},{"backend":{"service":{"name":"update-digital-tax-document-numbers","port":{"number":8080}}},"path":"/api/updateDigitalTaxDocumentNumbers","pathType":"Prefix"},{"backend":{"service":{"name":"get-digital-tax-document-numbers","port":{"number":8080}}},"path":"/api/GetDigitalTaxDocumentNumbersBS","pathType":"Prefix"}]}}],"tls":[{"secretName":"srvdevma1-ssl"}]}}
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/configuration-snippet: "keepalive_timeout 300s;\nsend_timeout
+      300s;\nproxy_ssl_session_reuse off;  \n"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "3"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "5"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  creationTimestamp: "2022-02-10T03:21:00Z"
+  generation: 103
+  labels:
+    k8slens-edit-resource-version: v1
+  name: ingress-produccion
+  namespace: produccion
+  resourceVersion: "279202280"
+  uid: a56476b6-fdba-4115-8715-89c5fd03e3da
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: audit-sc
+            port:
+              number: 8086
+        path: /api/AuditBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-limited-package
+            port:
+              number: 8082
+        path: /api/FindLimitedPackageBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: send-sms
+            port:
+              number: 8084
+        path: /api/SendSMSBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: subscribe-limited-package
+            port:
+              number: 8085
+        path: /api/SubscribeLimitedPackageCS
+        pathType: Prefix
+      - backend:
+          service:
+            name: is-alive
+            port:
+              number: 8443
+        path: /isalive
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-status-account-by-phone-number
+            port:
+              number: 8081
+        path: /api/FindStatusAccountByPhoneNumberBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: open-customer-holder-change-process
+            port:
+              number: 8088
+        path: /api/openCustomerHolderChangeProcessBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: close-customer-holder-change-process
+            port:
+              number: 8087
+        path: /api/closeCustomerHolderChangeProcessBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: get-customer-holder-change-process-status
+            port:
+              number: 8089
+        path: /api/getCustomerHolderChangeProcessStatusBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: send-sms-notification
+            port:
+              number: 8090
+        path: /api/sendSMSNotificationBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: add-comment-to-prepaid-account
+            port:
+              number: 8091
+        path: /api/addCommentToPrepaidAccountBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: create-global-transaction
+            port:
+              number: 8092
+        path: /api/createGlobalTransactionBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: validate-status-altamira-transaction
+            port:
+              number: 8093
+        path: /api/validateStatusAltamiraTransactionBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: disconnect-prepaid-account
+            port:
+              number: 8094
+        path: /api/disconectPrepaidAccountBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: disconnect-prepaid-account-ss
+            port:
+              number: 8095
+        path: /api/disconectPrepaidAccountSS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-simcard-puk-code
+            port:
+              number: 8080
+        path: /api/FindSimCardPukCodeCS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-by-subscriber-id
+            port:
+              number: 8080
+        path: /api/FindAccountBySubscriberIdBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-prepaid-product-specification-change
+            port:
+              number: 8080
+        path: /api/FindPrepaidProductSpecificationChangeBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: update-prepaid-subscriber-plan
+            port:
+              number: 8080
+        path: /api/UpdatePrepaidSubscriberPlanBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-available-prepaid-plans
+            port:
+              number: 8080
+        path: /api/FindAvailablePrepaidPlansBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-postpaid-subscriber-iccid
+            port:
+              number: 8080
+        path: /api/FindPostpaidSubscriberICCIDBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-limited-package-v2
+            port:
+              number: 8080
+        path: /api/v2/FindLimitedPackageBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: reversal-adjustment
+            port:
+              number: 8080
+        path: /api/ReversalAdjustment
+        pathType: Prefix
+      - backend:
+          service:
+            name: reversal-adjustment-ss
+            port:
+              number: 8080
+        path: /api/Subscriber/ReversalAdjustmentSS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-postpaid-account-info
+            port:
+              number: 8080
+        path: /api/FindPostpaidAccountInfo
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-relation-ship-by-use-account-id
+            port:
+              number: 8081
+        path: /api/FindAccountRelationShipByUseAccountId
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-prepaid-holder-customer-by-account
+            port:
+              number: 8080
+        path: /api/FindPrepaidHolderCustomerByAccountBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-promotions-by-account
+            port:
+              number: 8080
+        path: /api/FindPromotionsByAccount
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-available-allowances
+            port:
+              number: 8085
+        path: /api/FindAvailableAllowances
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-prepaid-customer-by-subscriber-id
+            port:
+              number: 8080
+        path: /api/FindPrepaidCustomerBySubscriberId
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-features-by-account
+            port:
+              number: 8080
+        path: /api/FindFeaturesByAccount
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-financial-info-by-subscriber-id
+            port:
+              number: 8088
+        path: /api/FindFinancialInfoBySubscriberId
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-product-offer-by-customer-account
+            port:
+              number: 8080
+        path: /api/FindProductOfferByCustomerAccountSS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-prepaid-allowances-by-subscriber-id
+            port:
+              number: 8089
+        path: /api/FindPrepaidAllowancesBySubscriberIdSS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-holder-customer-by-account-id
+            port:
+              number: 8080
+        path: /api/FindHolderCustomerByAccountId
+        pathType: Prefix
+      - backend:
+          service:
+            name: query-subscriber-details
+            port:
+              number: 8097
+        path: /api/querySubscriberDetails
+        pathType: Prefix
+      - backend:
+          service:
+            name: query-boltons-details
+            port:
+              number: 8100
+        path: /api/queryBoltonsDetails
+        pathType: Prefix
+      - backend:
+          service:
+            name: subscribe-bolton-v3
+            port:
+              number: 8080
+        path: /api/v3/SubscribeBoltonAltamira
+        pathType: Prefix
+      - backend:
+          service:
+            name: subscribe-limited-package-v2
+            port:
+              number: 8080
+        path: /api/v2/SubscribeLimitedPackageCS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-activation-date
+            port:
+              number: 8080
+        path: /api/findAccountActivationDate
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-balance
+            port:
+              number: 8080
+        path: /accounts/.*/balances
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-balance-soap-200
+            port:
+              number: 8080
+        path: /services/FindAccountBalance_v1
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-balance-soap
+            port:
+              number: 8080
+        path: /services/FindAccountBalance
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-enabled-currencies
+            port:
+              number: 8080
+        path: /api/findEnabledCurrencies
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-enabled-currencies-soap
+            port:
+              number: 8080
+        path: /services/FindEnabledCurrencies
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-balance
+            port:
+              number: 8080
+        path: /api/findSubscriberBalance
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-reason-code-types
+            port:
+              number: 8080
+        path: /api/findReasonCodeTypes
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-billing-migration-status
+            port:
+              number: 8080
+        path: /api/findBillingMigrationStatus
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-billing-migration-status-soap
+            port:
+              number: 8080
+        path: /services/FindBillingMigrationStatus
+        pathType: Prefix
+      - backend:
+          service:
+            name: prs-find-account-validator-digits
+            port:
+              number: 8080
+        path: /api/findAccountValidatorDigits
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-boltons
+            port:
+              number: 8080
+        path: /api/findSubscriberBoltons
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-financial-movements
+            port:
+              number: 8080
+        path: /api/findAccountFinancialMovements
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-invoice-detail
+            port:
+              number: 8080
+        path: /invoices/.*/appliedCharges
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-charge
+            port:
+              number: 8080
+        path: /account/.*/events
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-charge-soap
+            port:
+              number: 8080
+        path: /services/AccountCharge
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-charge-reversal-soap
+            port:
+              number: 8080
+        path: /services/AccountChargeReversal
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-payment-reversal
+            port:
+              number: 8080
+        path: /accounts/.*/refunds
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-payment-reversal-soap
+            port:
+              number: 8080
+        path: /services/AccountPaymentReversal
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-payment-reversal-soap-200
+            port:
+              number: 8080
+        path: /services/AccountPaymentReversal_v1
+        pathType: Prefix
+      - backend:
+          service:
+            name: prs-find-payer-accounts-by-document
+            port:
+              number: 8080
+        path: /api/findPayerAccountsByDocument
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-payer-accounts-by-document-soap
+            port:
+              number: 8080
+        path: /services/FindPayerAccountsByDocument
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-invoices
+            port:
+              number: 8080
+        path: /accounts/.*/invoices
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-invoice-soap
+            port:
+              number: 8080
+        path: /services/FindAccountInvoices
+        pathType: Prefix
+      - backend:
+          service:
+            name: get-account-billing-info
+            port:
+              number: 8080
+        path: /api/getAccountBillingInfo
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-payment
+            port:
+              number: 8080
+        path: /accounts/.*/payments
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-payment-soap
+            port:
+              number: 8080
+        path: /services/AccountPayment
+        pathType: Prefix
+      - backend:
+          service:
+            name: account-payment-soap-200
+            port:
+              number: 8080
+        path: /services/AccountPayment_v1
+        pathType: Prefix
+      - backend:
+          service:
+            name: bss-modify-bill-cycle
+            port:
+              number: 8080
+        path: /accounts/.*/cycleSpecification
+        pathType: Prefix
+      - backend:
+          service:
+            name: prs-validate-otp
+            port:
+              number: 8080
+        path: /api/validateOtp
+        pathType: Prefix
+      - backend:
+          service:
+            name: work-order
+            port:
+              number: 8080
+        path: /api/workOrder
+        pathType: Prefix
+      - backend:
+          service:
+            name: prs-work-order
+            port:
+              number: 8080
+        path: /services/WorkOrder
+        pathType: Prefix
+      - backend:
+          service:
+            name: generate-account-penalty
+            port:
+              number: 8080
+        path: /api/generateAccountPenalty
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-bill-cycles
+            port:
+              number: 8080
+        path: /api/findBillCycles
+        pathType: Prefix
+      - backend:
+          service:
+            name: apply-credit-note
+            port:
+              number: 8080
+        path: /api/applyCreditNote
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-balance-by-customer
+            port:
+              number: 8080
+        path: /api/findAccountBalanceByCustomer
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-traffic-by-identifier
+            port:
+              number: 8080
+        path: /api/findSubscriberTraffic
+        pathType: Prefix
+      - backend:
+          service:
+            name: substitute-invoice
+            port:
+              number: 8080
+        path: /customerBillOnDemand
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-status
+            port:
+              number: 8080
+        path: /api/subscriberStatus
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-status-soap
+            port:
+              number: 8080
+        path: /services/findSubscriberStatus
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-financial-account-info-by-id
+            port:
+              number: 8080
+        path: /api/FindFinancialAccountInfoByIdSS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-complementary-account-info
+            port:
+              number: 8080
+        path: /api/FindComplementaryAccountInfo
+        pathType: Prefix
+      - backend:
+          service:
+            name: get-bolton-unit
+            port:
+              number: 8080
+        path: /api/getBoltonUnit
+        pathType: Prefix
+      - backend:
+          service:
+            name: coupons-details
+            port:
+              number: 8080
+        path: /api/couponsDetails
+        pathType: Prefix
+      - backend:
+          service:
+            name: reconnect-account
+            port:
+              number: 8080
+        path: /api/reconnectAccount
+        pathType: Prefix
+      - backend:
+          service:
+            name: prs-billing-account
+            port:
+              number: 8080
+        path: /accountManagement/v4/billingAccount
+        pathType: Prefix
+      - backend:
+          service:
+            name: prs-usage-specification
+            port:
+              number: 8080
+        path: /accountManagement/v4/partyAccounts
+        pathType: Prefix
+      - backend:
+          service:
+            name: disconnect-account-by-final-state
+            port:
+              number: 8080
+        path: /api/disconnectAccountByFinalState
+        pathType: Prefix
+      - backend:
+          service:
+            name: get-postpaid-fiscal-information
+            port:
+              number: 8080
+        path: /api/getPostPaidFiscalInformation
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-status-mcontenido
+            port:
+              number: 8080
+        path: /api/subscriberStatusMcontenido
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-status-mcontenido-pre
+            port:
+              number: 8080
+        path: /api/FindSubscriberStatusMcontenidoPreBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-status-mcontenido-pos
+            port:
+              number: 8080
+        path: /api/FindSubscriberStatusMcontenidoPosBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-subscriber-status-mcontenido-soap
+            port:
+              number: 8080
+        path: /services/findSubscriberStatusMcontenido
+        pathType: Prefix
+      - backend:
+          service:
+            name: query-sos-top-ups-details
+            port:
+              number: 8080
+        path: /api/querySOSTopUps
+        pathType: Prefix
+      - backend:
+          service:
+            name: query-balances
+            port:
+              number: 8080
+        path: /api/queryBalances
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-customer-by-doc-id
+            port:
+              number: 8080
+        path: /customerInformation/v1.4.0/users/.*/customers
+        pathType: Prefix
+      - backend:
+          service:
+            name: user-profile
+            port:
+              number: 8080
+        path: /userProfile/v3
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-prepaid-customer-document-by-subscriber-id
+            port:
+              number: 8080
+        path: /api/FindPrepaidCustomerDocumentBySubscriberId
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-customer-document-by-subscriber-id
+            port:
+              number: 8080
+        path: /api/findCustomerDocumentBySubscriberId
+        pathType: Prefix
+      - backend:
+          service:
+            name: payment
+            port:
+              number: 8080
+        path: /api/payment
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-customer-accounts-list-by-doc-id-v2
+            port:
+              number: 8080
+        path: /accountManagement/v4/partyAccount
+        pathType: Prefix
+      - backend:
+          service:
+            name: query-account-role-by-customer
+            port:
+              number: 8080
+        path: /api/queryAccountRoleByCustomer
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-datasim
+            port:
+              number: 8080
+        path: /api/datasim
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-date-sim-postpaid
+            port:
+              number: 8080
+        path: /api/datesimpospaid
+        pathType: Prefix
+      - backend:
+          service:
+            name: ms-bss-simswap
+            port:
+              number: 8080
+        path: /api/SimSwap
+        pathType: Prefix
+      - backend:
+          service:
+            name: bss-add-customer-contact-medium
+            port:
+              number: 8080
+        path: /customer/.*/addContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: add-customer-contact-medium
+            port:
+              number: 8080
+        path: /api/addCustomerContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: prs-find-accounts-by-contact-medium
+            port:
+              number: 8080
+        path: /api/findAccountByContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-by-contact-medium
+            port:
+              number: 8080
+        path: /api/getAccountByContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-available-accounts-by-contact-medium
+            port:
+              number: 8080
+        path: /api/findAvailableAccountsByContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-account-by-customer-contact-medium
+            port:
+              number: 8080
+        path: /api/findAccountByCustomerContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: bss-update-customer-contact-medium
+            port:
+              number: 8080
+        path: /customer/.*/updateContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: update-customer-contact-medium
+            port:
+              number: 8080
+        path: /api/updateCustomerContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: create-account-contact-medium
+            port:
+              number: 8080
+        path: /api/createAccountContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: assign-contact-medium
+            port:
+              number: 8080
+        path: /account/.*/assignContactMedium
+        pathType: Prefix
+      - backend:
+          service:
+            name: change-acct-info
+            port:
+              number: 8080
+        path: /api/changeAcctInfo
+        pathType: Prefix
+      - backend:
+          service:
+            name: ms-bss-simswap
+            port:
+              number: 8080
+        path: /api/sim-swap/v0/retrieve-date
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-contact-medium-by-id
+            port:
+              number: 8080
+        path: /api/findContactMediumById
+        pathType: Prefix
+      - backend:
+          service:
+            name: device-status-connector
+            port:
+              number: 8080
+        path: /api/deviceStatusConnector
+        pathType: Prefix
+      - backend:
+          service:
+            name: rest-udb-connector
+            port:
+              number: 8080
+        path: /UDB/v1/UDB
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-postpaid-customer-document-by-subscriber-id
+            port:
+              number: 8080
+        path: /api/FindPostpaidCustomerDocumentBySubscriberId
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-individual-customer-by-doc-id
+            port:
+              number: 8080
+        path: /api/FindIndividualCustomerByDocId
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-organization-customer-by-doc-id
+            port:
+              number: 8080
+        path: /api/FindOrganizationCustomerByDocId
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-prepaid-account-by-document
+            port:
+              number: 8080
+        path: /api/FindPrepaidAccountByDocument
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-postpaid-account-by-document-v2
+            port:
+              number: 8080
+        path: /api/v2/FindPostpaidAccountByDocument
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-puk-code
+            port:
+              number: 8080
+        path: /api/FindPukCodeBS
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-prepaid-subscriber-iccid
+            port:
+              number: 8080
+        path: /api/FindPrepaidSubscriberICCID
+        pathType: Prefix
+      - backend:
+          service:
+            name: activate-limited-package-v2
+            port:
+              number: 8080
+        path: /api/v2/ActivateLimitedPackage
+        pathType: Prefix
+      - backend:
+          service:
+            name: ms-bss-simswap-check
+            port:
+              number: 8080
+        path: /api/sim-swap/v0/check
+        pathType: Prefix
+      - backend:
+          service:
+            name: kannel-send-sms
+            port:
+              number: 8080
+        path: /api/sendsmskannel
+        pathType: Prefix
+      - backend:
+          service:
+            name: validate-movil-x-doc-iden
+            port:
+              number: 8080
+        path: /api/validatemovilxdociden
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-prepaid-account-activation-date
+            port:
+              number: 8080
+        path: /api/findPrepaidAccountActivationDate
+        pathType: Prefix
+      - backend:
+          service:
+            name: find-postpaid-account-activation-date
+            port:
+              number: 8080
+        path: /api/findPostpaidAccountActivationDate
+        pathType: Prefix
+      - backend:
+          service:
+            name: ms-prs-smartbill-jwt
+            port:
+              number: 8080
+        path: /v1/tokens
+        pathType: Prefix
+      - backend:
+          service:
+            name: validate-json-web-token
+            port:
+              number: 8080
+        path: /v1/validateToken
+        pathType: Prefix
+      - backend:
+          service:
+            name: unidigital-get-token
+            port:
+              number: 8080
+        path: /api/unidigitalGetToken
+        pathType: Prefix
+      - backend:
+          service:
+            name: unidigital-get-digital-tax-document-numbers
+            port:
+              number: 8080
+        path: /api/getDigitalTaxDocumentNumbers
+        pathType: Prefix
+      - backend:
+          service:
+            name: update-digital-tax-document-numbers
+            port:
+              number: 8080
+        path: /api/updateDigitalTaxDocumentNumbers
+        pathType: Prefix
+      - backend:
+          service:
+            name: get-digital-tax-document-numbers
+            port:
+              number: 8080
+        path: /api/GetDigitalTaxDocumentNumbersBS
+        pathType: Prefix
+  tls:
+  - secretName: srvdevma1-ssl
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.161.168.145
