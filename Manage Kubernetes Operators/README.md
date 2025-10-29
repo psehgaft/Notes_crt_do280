@@ -1,7 +1,6 @@
 # Manage Kubernetes Operators — DO280‑Style Hands‑On Workshop
 
-**Duration:** ~2 hours  
-**Level:** Intermediate (Cluster Admin)  
+**Level:** Intermediate (Cluster Ad)  
 **Platform:** Red Hat OpenShift 4.14+  
 **Goal:** Install and update add‑on operators managed by the **Operator Lifecycle Manager (OLM)** and understand the **Cluster Version Operator (CVO)** vs add‑on operators lifecycle.
 
@@ -15,7 +14,7 @@
 ---
 
 ## Pre‑requisites
-- Cluster admin access (`cluster-admin`).
+- Cluster ad access (`cluster-ad`).
 - `oc` CLI configured to your cluster.
 - Internet access to OperatorHub or mirrored catalogs (for disconnected follow **Appendix A**).
 
@@ -30,13 +29,13 @@ echo "Console: $OCP_CONSOLE_URL"; echo "API: $OCP_API_URL"
 
 ## Workshop Flow (Timeline)
 
-| Time | Module |
+| ID | Module |
 |------|--------|
-| 0:00–0:15 | **Theory:** Operator Pattern, OLM & CVO, catalogs, channels, approval modes |
-| 0:15–0:40 | **Exercise 1 (Web):** Install File Integrity Operator via Console |
-| 0:40–1:20 | **Exercise 2 (CLI):** Install File Integrity Operator with **Manual** updates |
-| 1:20–1:50 | **Lab:** Install **Compliance Operator** (CLI), verify workloads & run a simple scan |
-| 1:50–2:00 | **Cleanup, Summary & Q&A** |
+| 01 | **Theory:** Operator Pattern, OLM & CVO, catalogs, channels, approval modes |
+| 02 | **Exercise 1 (Web):** Install File Integrity Operator via Console |
+| 03 | **Exercise 2 (CLI):** Install File Integrity Operator with **Manual** updates |
+| 04 | **Lab:** Install **Compliance Operator** (CLI), verify workloads & run a simple scan |
+| 05 | **Cleanup, Summary & Q&A** |
 
 ---
 
@@ -53,7 +52,7 @@ echo "Console: $OCP_CONSOLE_URL"; echo "API: $OCP_API_URL"
 - `InstallPlan` → execution plan for an install/upgrade.
 - `ClusterServiceVersion (CSV)` → versioned install recipe & status.
 
-### Mini‑Quiz (single choice)
+### i‑Quiz (single choice)
 1) The resource you modify to **approve manual updates** is:  
    a) CSV  b) **InstallPlan**  c) Subscription  d) OperatorGroup  
 2) To make an operator available to **all namespaces**, use:  
@@ -83,7 +82,7 @@ echo "Console: $OCP_CONSOLE_URL"; echo "API: $OCP_API_URL"
    - **YAML** (CSV spec).
    - **Subscription** (channel & approval; link to **InstallPlan**).
 6. (Optional) Test CR flow:
-   - Create a CR **FileIntegrity** (form or YAML); set `spec.config.gracePeriod: 60` and observe **FileIntegrityNodeStatus** after some minutes.
+   - Create a CR **FileIntegrity** (form or YAML); set `spec.config.gracePeriod: 60` and observe **FileIntegrityNodeStatus** after some utes.
 7. **Uninstall**: Operators → **Installed Operators** → *File Integrity Operator* → **Actions → Uninstall Operator**.  
    Then delete project **`openshift-file-integrity`** (Home → Projects → select → Delete).
 
