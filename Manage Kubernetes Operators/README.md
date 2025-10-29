@@ -1,4 +1,4 @@
-# Manage Kubernetes Operators — DO280‑Style Hands‑On Workshop (2 hours)
+# Manage Kubernetes Operators — DO280‑Style Hands‑On Workshop
 
 **Duration:** ~2 hours  
 **Level:** Intermediate (Cluster Admin)  
